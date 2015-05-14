@@ -44,6 +44,7 @@ public class MainActivity extends ActionBarActivity {
                               return true;
 
                           MyDialogFragment dialog = MyDialogFragment.newInstance(params);
+                          dialog.setDialogListener(dialogListener);
                           dialog.show(MainActivity.this.getFragmentManager(), "dialog");
 
                           return true;
@@ -83,7 +84,7 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private static final int PARAM_NUM = 5;
+    private static final int PARAM_NUM = 8;
     private String[] parseForDialog(String body) {
         String[] params = new String[PARAM_NUM];
 
@@ -100,4 +101,14 @@ public class MainActivity extends ActionBarActivity {
 
         return params;
     }
+
+    private DialogListener dialogListener = new DialogListener() {
+        @Override
+        public void doClick(String js){
+            if(js.equals("") || webView == null)
+                return;
+
+            webView.loadUrl("javascript:" + js);
+        }
+    };
 }

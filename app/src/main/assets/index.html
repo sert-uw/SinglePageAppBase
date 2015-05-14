@@ -8,7 +8,7 @@
     <p>Sample</p>
 
     <p>
-      <input type="button" value="CountUp" onclick="countUpA();" />
+      <input type="button" value="CountUp" onclick="countUpA(1);" />
       <span id="sampleOutputA" style="margin-left: 10px;">0</span>
     </p>
 
@@ -17,15 +17,15 @@
     </p>
 
     <p>
-      <input type="button" value="ConfirmDialog" onclick="showAndroidDialog('Title1', 'test1', 'OK', '', '', '');" />
+      <input type="button" value="ConfirmDialog" onclick="showAndroidDialog('Increase', 'countUp + 1', 'OK', '', '', 'countUpA(1)', '', '');" />
     </p>
 
     <p>
-      <input type="button" value="2SelectionsDialog" onclick="showAndroidDialog('Title2', 'test2', 'OK', '', 'NO');" />
+      <input type="button" value="2SelectionsDialog" onclick="showAndroidDialog('Select', 'Increase or Decrease', 'Increase', '', 'Decrease', 'countUpA(1)', '', 'countUpA(-1)');" />
     </p>
 
     <p>
-      <input type="button" value="3SelectionsDialog" onclick="showAndroidDialog('Title3', 'test3', 'Positive', 'Neutral', 'Negative');" />
+      <input type="button" value="3SelectionsDialog" onclick="showAndroidDialog('Select', 'How much do you want to change?', '+5', 'none', '-5', 'countUpA(5)', '', 'countUpA(-5)');" />
     </p>
 
   </body>
