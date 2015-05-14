@@ -36,67 +36,17 @@ public class MainActivity extends ActionBarActivity {
                     }
                 }
 
-                else if(type.equals("ConfirmDialog")) {
-                    try {
-                        String[] params = parseForDialog(3, body);
+                else if(type.equals("Dialog")){
+                    try{
+                          String[] params = parseForDialog(body);
 
-                        if(params == null)
-                            return true;
+                          if(params == null)
+                              return true;
 
-                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                        builder.setTitle(params[0]);
-                        builder.setPositiveButton(params[1], null);
-                        builder.setMessage(params[2]);
+                          MyDialogFragment dialog = MyDialogFragment.newInstance(params);
+                          dialog.show(MainActivity.this.getFragmentManager(), "dialog");
 
-                        AlertDialog alert = builder.create();
-                        alert.show();
-
-                        return true;
-                    } finally {
-                        result.confirm();
-                    }
-                }
-
-                else if(type.equals("2SelectionsDialog")) {
-                    try {
-                        String[] params = parseForDialog(4, body);
-
-                        if(params == null)
-                            return true;
-
-                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                        builder.setTitle(params[0]);
-                        builder.setPositiveButton(params[1], null);
-                        builder.setNegativeButton(params[2], null);
-                        builder.setMessage(params[3]);
-
-                        AlertDialog alert = builder.create();
-                        alert.show();
-
-                        return true;
-                    } finally {
-                        result.confirm();
-                    }
-                }
-
-                else if(type.equals("3SelectionsDialog")) {
-                    try {
-                        String[] params = parseForDialog(5, body);
-
-                        if(params == null)
-                            return true;
-
-                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                        builder.setTitle(params[0]);
-                        builder.setPositiveButton(params[1], null);
-                        builder.setNeutralButton(params[2], null);
-                        builder.setNegativeButton(params[3], null);
-                        builder.setMessage(params[4]);
-
-                        AlertDialog alert = builder.create();
-                        alert.show();
-
-                        return true;
+                          return true;
                     } finally {
                         result.confirm();
                     }
@@ -108,7 +58,6 @@ public class MainActivity extends ActionBarActivity {
         });
 
         webView.loadUrl("file:///android_asset/index.html");
-        //webView.addJavascriptInterface(new JavaScriptInterface(this), "Android");
     }
 
 
@@ -134,22 +83,20 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private String[] parseForDialog(int parseNum, String body) {
-        String[] params = new String[parseNum];
+    private static final int PARAM_NUM = 5;
+    private String[] parseForDialog(String body) {
+        String[] params = new String[PARAM_NUM];
 
-        for(int i=0; i<parseNum - 1; i++) {
+        for(int i=0; i<PARAM_NUM - 1; i++) {
             int index = body.indexOf("/");
             if(index == -1)
                 return null;
 
             params[i] = body.substring(0, index);
             body = body.substring(index + 1);
-
-            if(params[i].equals(""))
-                return null;
         }
 
-        params[parseNum - 1] = body.substring(body.indexOf("/") + 1);
+        params[PARAM_NUM - 1] = body.substring(body.indexOf("/") + 1);
 
         return params;
     }
